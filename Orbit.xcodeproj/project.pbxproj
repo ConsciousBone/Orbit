@@ -6,8 +6,13 @@
 	objectVersion = 77;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		21B0A06D2EC4C8B50009AE96 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 21B0A06C2EC4C8B00009AE96 /* README.md */; };
+/* End PBXBuildFile section */
+
 /* Begin PBXFileReference section */
 		21B0A0532EC4C7700009AE96 /* Orbit.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Orbit.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		21B0A06C2EC4C8B00009AE96 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
@@ -32,6 +37,7 @@
 		21B0A04A2EC4C7700009AE96 = {
 			isa = PBXGroup;
 			children = (
+				21B0A06C2EC4C8B00009AE96 /* README.md */,
 				21B0A0552EC4C7700009AE96 /* Orbit */,
 				21B0A0542EC4C7700009AE96 /* Products */,
 			);
@@ -109,6 +115,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				21B0A06D2EC4C8B50009AE96 /* README.md in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
