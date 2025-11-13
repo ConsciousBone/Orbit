@@ -25,6 +25,8 @@ struct HomeView: View {
         }
     }
     
+    @AppStorage("selectedTab") private var selectedTab = 0
+    
     var body: some View {
         Form {
             Section {
@@ -41,6 +43,28 @@ struct HomeView: View {
                 Text("\(appDisplayName) - version \(appVersionName) build \(appBuildNumber)")
             }
             .listRowSeparator(.hidden)
+            
+            Section {
+                Button {
+                    selectedTab = 1
+                } label: {
+                    Label("View the ISS's location", systemImage: "map")
+                }
+                
+                Button {
+                    selectedTab = 2
+                } label: {
+                    Label("Try the small things", systemImage: "ellipsis")
+                }
+                
+                Button {
+                    selectedTab = 3
+                } label: {
+                    Label("Change your settings", systemImage: "gear")
+                }
+            } header: {
+                Text("Things to do in Orbit")
+            }
         }
     }
 }
