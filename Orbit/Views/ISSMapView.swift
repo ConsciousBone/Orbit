@@ -6,10 +6,18 @@
 //
 
 import SwiftUI
+import MapKit
 
 struct ISSMapView: View {
+    let position = MapCameraPosition.region(
+        MKCoordinateRegion(
+            center: CLLocationCoordinate2D(latitude: 25, longitude: 0),
+            span: MKCoordinateSpan(latitudeDelta: 70, longitudeDelta: 70)
+        )
+    )
+    
     var body: some View {
-        Text("ISS map view")
+        Map(initialPosition: position)
     }
 }
 

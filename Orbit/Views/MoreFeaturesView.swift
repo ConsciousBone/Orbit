@@ -13,7 +13,7 @@ struct MoreFeaturesView: View {
             Form {
                 Section {
                     NavigationLink {
-                        Text("people in space thing")
+                        PeopleInSpaceView()
                     } label: {
                         Label("People in space", systemImage: "figure")
                     }
@@ -23,7 +23,7 @@ struct MoreFeaturesView: View {
                 
                 Section {
                     NavigationLink {
-                        Text("space jokes thing")
+                        SpaceJokesView()
                     } label: {
                         Label("Space jokes", systemImage: "theatermasks")
                     }
@@ -33,7 +33,7 @@ struct MoreFeaturesView: View {
                 
                 Section {
                     NavigationLink {
-                        Text("spacebar counter thing")
+                        SpacebarCountView()
                     } label: {
                         Label("Spacebar click counter", systemImage: "space")
                     }
