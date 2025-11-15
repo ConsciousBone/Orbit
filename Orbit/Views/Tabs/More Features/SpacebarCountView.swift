@@ -8,7 +8,15 @@
 import SwiftUI
 
 struct SpacebarCountView: View {
+    @AppStorage("selectedAccentIndex") private var selectedAccentIndex = 6
+    @AppStorage("selectedBackspacePositionIndex") private var selectedBackspacePositionIndex = 1
+    // 0 = left, 1 = right
+    
     @AppStorage("spacebarTaps") private var spacebarTaps = 0
+    
+    var adaptiveForegroundColour: Color {
+        baseAccentColours[selectedAccentIndex].adaptedTextColor()
+    }
     
     var body: some View {
         VStack {
@@ -18,6 +26,23 @@ struct SpacebarCountView: View {
                 .font(.title)
             
             HStack {
+                if selectedBackspacePositionIndex == 0 {
+                    Button {
+                        spacebarTaps -= 1
+                    } label: {
+                        RoundedRectangle(cornerRadius: 10)
+                            .frame(width: 75, height: 75)
+                            .overlay {
+                                Image(systemName: "delete.backward")
+                                    .resizable()
+                                    .scaledToFit()
+                                    .foregroundStyle(adaptiveForegroundColour)
+                                    .padding(20)
+                            }
+                    }
+                    .disabled(spacebarTaps <= 0)
+                }
+                
                 Button {
                     spacebarTaps += 1
                 } label: {
@@ -27,25 +52,27 @@ struct SpacebarCountView: View {
                             Image(systemName: "space")
                                 .resizable()
                                 .scaledToFit()
-                                .foregroundStyle(.foreground)
+                                .foregroundStyle(adaptiveForegroundColour)
                                 .padding(30)
                         }
                 }
                 
-                Button {
-                    spacebarTaps -= 1
-                } label: {
-                    RoundedRectangle(cornerRadius: 10)
-                        .frame(width: 75, height: 75)
-                        .overlay {
-                            Image(systemName: "delete.backward")
-                                .resizable()
-                                .scaledToFit()
-                                .foregroundStyle(.foreground)
-                                .padding(20)
-                        }
+                if selectedBackspacePositionIndex == 1 {
+                    Button {
+                        spacebarTaps -= 1
+                    } label: {
+                        RoundedRectangle(cornerRadius: 10)
+                            .frame(width: 75, height: 75)
+                            .overlay {
+                                Image(systemName: "delete.backward")
+                                    .resizable()
+                                    .scaledToFit()
+                                    .foregroundStyle(adaptiveForegroundColour)
+                                    .padding(20)
+                            }
+                    }
+                    .disabled(spacebarTaps <= 0)
                 }
-                .disabled(spacebarTaps <= 0)
             }
             .padding(50)
         }

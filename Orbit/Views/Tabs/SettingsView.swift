@@ -9,6 +9,10 @@ import SwiftUI
 
 struct SettingsView: View {
     @AppStorage("selectedAccentIndex") private var selectedAccentIndex = 6
+    
+    @AppStorage("selectedBackspacePositionIndex") private var selectedBackspacePositionIndex = 1
+    // 0 = left, 1 = right
+    let backspacePositions = ["Left", "Right"]
     var body: some View {
         Form {
             Section {
@@ -19,6 +23,18 @@ struct SettingsView: View {
                 } label: {
                     Label("Accent colour", systemImage: "paintpalette")
                 }
+            }
+            
+            Section {
+                Picker(selection: $selectedBackspacePositionIndex) {
+                    ForEach(backspacePositions.indices, id: \.self) { index in
+                        Text(backspacePositions[index])
+                    }
+                } label: {
+                    Label("Backspace position", systemImage: "delete.backward")
+                }
+            } header: {
+                Text("Spacebar clicker")
             }
         }
     }
