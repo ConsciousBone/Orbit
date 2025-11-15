@@ -24,15 +24,16 @@ struct ISSMapView: View {
     @State private var issLocationTimer = Timer.publish(every: 2, on: .main, in: .common).autoconnect()
     
     var body: some View {
-        Map(initialPosition: position, interactionModes: [.all]) {
-            UserAnnotation()
-            Marker(
-                "ISS",
-                systemImage: "dot.radiowaves.left.and.right",
-                coordinate: CLLocationCoordinate2D(latitude: issLat, longitude: issLong)
-            )
-            .tint(.purple)
-        }
+        ZStack(alignment: .bottom) {
+            Map(initialPosition: position, interactionModes: [.all]) {
+                UserAnnotation()
+                Marker(
+                    "ISS",
+                    systemImage: "dot.radiowaves.left.and.right",
+                    coordinate: CLLocationCoordinate2D(latitude: issLat, longitude: issLong)
+                )
+                .tint(.purple)
+            }
             .mapControls{
                 MapCompass()
                 MapScaleView()
@@ -49,6 +50,25 @@ struct ISSMapView: View {
                 print("timer called, fetching location")
                 fetchISSLocation(latitude: $issLat, longitude: $issLong)
             }
+            
+            if #available(iOS 26, *) {
+                Button {
+                    print("moving to iss")
+                } label: {
+                    Label("Move to ISS", systemImage: "dot.radiowaves.left.and.right")
+                }
+                .buttonStyle(.glass)
+                .padding()
+            } else {
+                Button {
+                    print("moving to iss")
+                } label: {
+                    Label("Move to ISS", systemImage: "dot.radiowaves.left.and.right")
+                }
+                .buttonStyle(.bordered)
+                .padding()
+            }
+        }
     }
 }
 
