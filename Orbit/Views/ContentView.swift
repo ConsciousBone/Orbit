@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct ContentView: View {
+    @AppStorage("selectedAccentIndex") private var selectedAccentIndex = 6 // purple
     @AppStorage("selectedTab") private var selectedTab = 0
     var body: some View {
         TabView(selection: $selectedTab) {
@@ -32,6 +33,7 @@ struct ContentView: View {
                     Label("Settings", systemImage: "gear")
                 }
         }
+        .tint(accentColours[selectedAccentIndex])
     }
 }
 #Preview {
