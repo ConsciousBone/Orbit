@@ -25,7 +25,7 @@ struct ISSMapView: View {
     
     var body: some View {
         ZStack(alignment: .bottom) {
-            Map(initialPosition: position, interactionModes: [.all]) {
+            Map(position: $position, interactionModes: [.all]) {
                 UserAnnotation()
                 Marker(
                     "ISS",
@@ -54,6 +54,14 @@ struct ISSMapView: View {
             if #available(iOS 26, *) {
                 Button {
                     print("moving to iss")
+                    withAnimation {
+                        position = MapCameraPosition.region(
+                            MKCoordinateRegion(
+                                center: CLLocationCoordinate2D(latitude: issLat, longitude: issLong),
+                                span: MKCoordinateSpan(latitudeDelta: 70, longitudeDelta: 70)
+                            )
+                        )
+                    }
                 } label: {
                     Label("Move to ISS", systemImage: "dot.radiowaves.left.and.right")
                 }
