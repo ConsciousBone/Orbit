@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import SwiftUI
 
 struct ISSResponse: Codable {
     struct ISSPosition: Codable {
@@ -18,6 +19,16 @@ struct ISSResponse: Codable {
     let timestamp: Int
 }
 
-func fetchISSLocation(latitude: Int, longitude: Int) {
+func fetchISSLocation(latitude: Binding<Double>, longitude: Binding<Double>) {
     guard let url = URL(string: "http://api.open-notify.org/iss-now.json") else { return }
+    
+    URLSession.shared.dataTask(with: url) {data, _, error in
+        guard let data = data,
+              let decoded = try? JSONDecoder().decode(ISSResponse.self, from: data) else { return }
+        
+        DispatchQueue.main.async {
+            latitude.wrappedValue = Double(decoded.iss_position.latitude) ?? 0
+            longitude.wrappedValue = Double(decoded.iss_position.longitude) ?? 0
+        }
+    }
 }
