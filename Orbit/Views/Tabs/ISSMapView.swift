@@ -21,11 +21,17 @@ struct ISSMapView: View {
     
     @State private var issLat: Double = 0.0
     @State private var issLong: Double = 0.0
-    @State private var issLocationTimer = Timer.publish(every: 5, on: .main, in: .common).autoconnect()
+    @State private var issLocationTimer = Timer.publish(every: 2, on: .main, in: .common).autoconnect()
     
     var body: some View {
         Map(initialPosition: position, interactionModes: [.all]) {
             UserAnnotation()
+            Marker(
+                "ISS",
+                systemImage: "dot.radiowaves.left.and.right",
+                coordinate: CLLocationCoordinate2D(latitude: issLat, longitude: issLong)
+            )
+            .tint(.purple)
         }
             .mapControls{
                 MapCompass()
@@ -34,10 +40,13 @@ struct ISSMapView: View {
                 MapUserLocationButton()
             }
             .onAppear {
+                print("map onappear")
                 locationManager.requestWhenInUse()
+                print("fetching location onappear")
                 fetchISSLocation(latitude: $issLat, longitude: $issLong)
             }
             .onReceive(issLocationTimer) { _ in
+                print("timer called, fetching location")
                 fetchISSLocation(latitude: $issLat, longitude: $issLong)
             }
     }
