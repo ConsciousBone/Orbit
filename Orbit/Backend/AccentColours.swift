@@ -23,3 +23,11 @@ let baseAccentColours: [Color] = [
     .purple, .brown,
     .white, .black
 ]
+
+let accentColourNames: [String] = [
+    "Red", "Orange",
+    "Yellow", "Green",
+    "Mint", "Blue",
+    "Purple", "Brown",
+    "White", "Black"
+]

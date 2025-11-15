@@ -8,8 +8,19 @@
 import SwiftUI
 
 struct SettingsView: View {
+    @AppStorage("selectedAccentIndex") private var selectedAccentIndex = 6
     var body: some View {
-        Text("Settings view")
+        Form {
+            Section {
+                Picker(selection: $selectedAccentIndex) {
+                    ForEach(accentColours.indices, id: \.self) { index in
+                        Text(accentColourNames[index])
+                    }
+                } label: {
+                    Label("Accent colour", systemImage: "paintpalette")
+                }
+            }
+        }
     }
 }
 
