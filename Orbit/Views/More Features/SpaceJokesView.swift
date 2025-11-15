@@ -26,9 +26,25 @@ struct SpaceJoke: Identifiable {
 
 struct SpaceJokesView: View {
     let jokes = SpaceJoke.all
+    @State private var selectedJoke = SpaceJoke.all.randomElement()
     
     var body: some View {
-        Text("Space jokes view")
+        Form {
+            Section {
+                Text(selectedJoke!.setup)
+                Text(selectedJoke!.punchline)
+            }
+            
+            Section {
+                Button {
+                    selectedJoke = SpaceJoke.all.randomElement()
+                } label: {
+                    Label("New joke", systemImage: "shuffle")
+                }
+            }
+        }
+        .navigationTitle("Space jokes")
+        .navigationBarTitleDisplayMode(.inline)
     }
 }
 
