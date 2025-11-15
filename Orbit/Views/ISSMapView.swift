@@ -9,6 +9,8 @@ import SwiftUI
 import MapKit
 
 struct ISSMapView: View {
+    @StateObject private var locationManager = LocationManager()
+    
     @State private var position = MapCameraPosition.region(
         MKCoordinateRegion(
             center: CLLocationCoordinate2D(latitude: 25, longitude: 0),
@@ -25,6 +27,9 @@ struct ISSMapView: View {
                 MapScaleView()
                 MapPitchToggle()
                 MapUserLocationButton()
+            }
+            .onAppear {
+                locationManager.requestWhenInUse()
             }
     }
 }
