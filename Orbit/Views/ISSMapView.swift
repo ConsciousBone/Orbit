@@ -9,7 +9,7 @@ import SwiftUI
 import MapKit
 
 struct ISSMapView: View {
-    let position = MapCameraPosition.region(
+    @State private var position = MapCameraPosition.region(
         MKCoordinateRegion(
             center: CLLocationCoordinate2D(latitude: 25, longitude: 0),
             span: MKCoordinateSpan(latitudeDelta: 70, longitudeDelta: 70)
@@ -17,7 +17,15 @@ struct ISSMapView: View {
     )
     
     var body: some View {
-        Map(initialPosition: position)
+        Map(initialPosition: position, interactionModes: [.all]) {
+            UserAnnotation()
+        }
+            .mapControls{
+                MapCompass()
+                MapScaleView()
+                MapPitchToggle()
+                MapUserLocationButton()
+            }
     }
 }
 
