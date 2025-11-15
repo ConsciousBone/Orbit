@@ -7,6 +7,7 @@
 
 import SwiftUI
 import MapKit
+import Combine
 
 struct ISSMapView: View {
     @StateObject private var locationManager = LocationManager()
@@ -17,6 +18,10 @@ struct ISSMapView: View {
             span: MKCoordinateSpan(latitudeDelta: 70, longitudeDelta: 70)
         )
     )
+    
+    @State private var issLat: Double = 0.0
+    @State private var issLong: Double = 0.0
+    @State private var issLocationTimer = Timer.publish(every: 5, on: .main, in: .common).autoconnect()
     
     var body: some View {
         Map(initialPosition: position, interactionModes: [.all]) {
@@ -30,6 +35,10 @@ struct ISSMapView: View {
             }
             .onAppear {
                 locationManager.requestWhenInUse()
+                fetchISSLocation(latitude: $issLat, longitude: $issLong)
+            }
+            .onReceive(issLocationTimer) { _ in
+                fetchISSLocation(latitude: $issLat, longitude: $issLong)
             }
     }
 }
