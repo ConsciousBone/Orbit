@@ -20,7 +20,8 @@ struct SpaceJoke: Identifiable {
         .init(setup: "What did Mars say to Saturn?", punchline: "Give me a ring sometime!"),
         .init(setup: "Why didn't the sun go to college?", punchline: "Because it already had a million degrees!"),
         .init(setup: "How do you organise a space party?", punchline: "You planet!"),
-        .init(setup: "What is an astronaut's favourite chocolate?", punchline: "A Mars bar.")
+        .init(setup: "What is an astronaut's favourite chocolate?", punchline: "A Mars bar."),
+        .init(setup: "Why don't aliens eat clowns?", punchline: "Because they taste funny!")
     ]
 }
 

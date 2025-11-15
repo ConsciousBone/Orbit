@@ -35,7 +35,7 @@ struct MoreFeaturesView: View {
                     NavigationLink {
                         SpacebarCountView()
                     } label: {
-                        Label("Spacebar click counter", systemImage: "space")
+                        Label("Spacebar clicker", systemImage: "space")
                     }
                 } footer: {
                     Text("See how many times you can tap the *space*bar!")
