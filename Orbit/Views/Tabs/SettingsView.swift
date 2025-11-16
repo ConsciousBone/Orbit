@@ -16,6 +16,9 @@ struct SettingsView: View {
     
     @AppStorage("issLocationRefreshInterval") private var issLocationRefreshInterval: Double = 2
     @AppStorage("showingISSDistance") private var showingISSDistance = true
+    @AppStorage("issDistanceUnits") private var issDistanceUnits = 0
+    // 0 is km, 1 is miles
+    let distanceUnitsText = ["km", "mi"]
     
     var body: some View {
         NavigationStack {
@@ -59,6 +62,15 @@ struct SettingsView: View {
                     Toggle(isOn: $showingISSDistance) {
                         Label("Show distance to ISS", systemImage: "point.bottomleft.filled.forward.to.point.topright.scurvepath")
                     }
+                    Picker(selection: $issDistanceUnits) {
+                        ForEach(distanceUnitsText.indices, id: \.self) { index in
+                            Text(distanceUnitsText[index])
+                        }
+                    } label: {
+                        Label("Distance units", systemImage: "base.unit")
+                    }
+                } header: {
+                    Text("ISS distance")
                 }
             }
             .navigationTitle("Settings")

@@ -26,8 +26,11 @@ struct ISSMapView: View {
     @State private var issLat: Double = 0.0
     @State private var issLong: Double = 0.0
     @State private var issLocationTimer = Timer.publish(every: 2, on: .main, in: .common).autoconnect()
+    @AppStorage("issDistanceUnits") private var issDistanceUnits = 0
+    // 0 is km, 1 is miles
+    let distanceUnitsText = ["km", "mi"]
     
-    var distanceToISS: CLLocationDistance? {
+    var distanceToISS: (value: Double, unit: String)? {
         guard
             let userLocation = locationManager.currentLocation,
             issLat != 0,
@@ -35,7 +38,16 @@ struct ISSMapView: View {
         else { return nil }
         
         let issLocation = CLLocation(latitude: issLat, longitude: issLong)
-        return userLocation.distance(from: issLocation)
+        let metres = userLocation.distance(from: issLocation)
+        
+        switch issDistanceUnits {
+        case 0: // km
+            return (metres / 1000, "km")
+        case 1: // mi
+            return (metres / 1609.344, "mi")
+        default:
+            return (metres / 1000, "km")
+        }
     }
     
     var body: some View {
@@ -77,13 +89,13 @@ struct ISSMapView: View {
                     if showingISSDistance {
                         if #available(iOS 26, *) {
                             if let distance = distanceToISS {
-                                Text(String(format: "Distance to ISS: %.1f km", distance / 1000))
+                                Text(String(format: "Distance to ISS: %.1f %@", distance.value, distance.unit))
                                     .padding(6.7) // siixxxxx seeeevvvvvveeeeennnnnnnn
                                     .glassEffect()
                             }
                         } else {
                             if let distance = distanceToISS {
-                                Text(String(format: "Distance to ISS: %.1f km", distance / 1000))
+                                Text(String(format: "Distance to ISS: %.1f %@", distance.value, distance.unit))
                                     .padding(6.7) // siixxxxx seeeevvvvvveeeeennnnnnnn
                                     .background(.regularMaterial, in: RoundedRectangle(cornerRadius: 6.7))
                             }
