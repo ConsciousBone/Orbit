@@ -41,6 +41,8 @@ struct MoreFeaturesView: View {
                     Text("See how many times you can tap the *space*bar!")
                 }
             }
+            .navigationTitle("More features")
+            .navigationBarTitleDisplayMode(.inline)
         }
     }
 }

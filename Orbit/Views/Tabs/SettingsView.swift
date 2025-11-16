@@ -16,41 +16,45 @@ struct SettingsView: View {
     
     @AppStorage("issLocationRefreshInterval") private var issLocationRefreshInterval: Double = 2
     var body: some View {
-        Form {
-            Section {
-                Picker(selection: $selectedAccentIndex) {
-                    ForEach(accentColours.indices, id: \.self) { index in
-                        Text(accentColourNames[index])
+        NavigationStack {
+            Form {
+                Section {
+                    Picker(selection: $selectedAccentIndex) {
+                        ForEach(accentColours.indices, id: \.self) { index in
+                            Text(accentColourNames[index])
+                        }
+                    } label: {
+                        Label("Accent colour", systemImage: "paintpalette")
                     }
-                } label: {
-                    Label("Accent colour", systemImage: "paintpalette")
+                }
+                
+                Section {
+                    Picker(selection: $selectedBackspacePositionIndex) {
+                        ForEach(backspacePositions.indices, id: \.self) { index in
+                            Text(backspacePositions[index])
+                        }
+                    } label: {
+                        Label("Backspace position", systemImage: "delete.backward")
+                    }
+                } header: {
+                    Text("Spacebar clicker")
+                }
+                
+                Section {
+                    Slider(
+                        value: $issLocationRefreshInterval,
+                        in: 1...5,
+                        step: 1.0,
+                        label: { Text("ISS update rate") },
+                        minimumValueLabel: { Text("1") },
+                        maximumValueLabel: { Text("5") }
+                    )
+                } header: {
+                    Text("ISS update rate: \(issLocationRefreshInterval.formatted(.number.precision(.fractionLength(0))))")
                 }
             }
-            
-            Section {
-                Picker(selection: $selectedBackspacePositionIndex) {
-                    ForEach(backspacePositions.indices, id: \.self) { index in
-                        Text(backspacePositions[index])
-                    }
-                } label: {
-                    Label("Backspace position", systemImage: "delete.backward")
-                }
-            } header: {
-                Text("Spacebar clicker")
-            }
-            
-            Section {
-                Slider(
-                    value: $issLocationRefreshInterval,
-                    in: 1...5,
-                    step: 1.0,
-                    label: { Text("ISS update rate") },
-                    minimumValueLabel: { Text("1") },
-                    maximumValueLabel: { Text("5") }
-                )
-            } header: {
-                Text("ISS update rate: \(issLocationRefreshInterval.formatted(.number.precision(.fractionLength(0))))")
-            }
+            .navigationTitle("Settings")
+            .navigationBarTitleDisplayMode(.inline)
         }
     }
 }

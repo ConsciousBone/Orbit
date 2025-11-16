@@ -31,13 +31,15 @@ struct PeopleInSpaceView: View {
                     ForEach(people, id: \.name) { person in
                         Section {
                             Text(person.name)
-                            Text(person.craft)
+                            Text("Spacecraft: \(person.craft)")
                                 .foregroundStyle(.secondary)
                         }
                     }
                 }
             }
         }
+        .navigationTitle("People in space")
+        .navigationBarTitleDisplayMode(.inline)
         .task {
             await loadPeople()
         }
