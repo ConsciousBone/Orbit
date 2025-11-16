@@ -25,6 +25,17 @@ struct ISSMapView: View {
     @State private var issLong: Double = 0.0
     @State private var issLocationTimer = Timer.publish(every: 2, on: .main, in: .common).autoconnect()
     
+    var distanceToISS: CLLocationDistance? {
+        guard
+            let userLocation = locationManager.currentLocation,
+            issLat != 0,
+            issLong != 0
+        else { return nil }
+        
+        let issLocation = CLLocation(latitude: issLat, longitude: issLong)
+        return userLocation.distance(from: issLocation)
+    }
+    
     var body: some View {
         ZStack(alignment: .bottom) {
             Map(position: $position, interactionModes: [.all]) {
@@ -38,7 +49,6 @@ struct ISSMapView: View {
             }
             .mapControls{
                 MapCompass()
-                MapScaleView()
                 MapPitchToggle()
                 MapUserLocationButton()
             }
@@ -61,32 +71,50 @@ struct ISSMapView: View {
             }
             
             if issLat != 0 || issLong != 0 {
-                if #available(iOS 26, *) {
-                    Button {
-                        print("moving to iss")
-                        withAnimation {
-                            position = MapCameraPosition.region(
-                                MKCoordinateRegion(
-                                    center: CLLocationCoordinate2D(latitude: issLat, longitude: issLong),
-                                    span: MKCoordinateSpan(latitudeDelta: 70, longitudeDelta: 70)
-                                )
-                            )
+                VStack {
+                    if #available(iOS 26, *) {
+                        if let distance = distanceToISS {
+                            Text(String(format: "Distance to ISS: %.1f km", distance / 1000))
+                                .padding(6.7) // siixxxxx seeeevvvvvveeeeennnnnnnn
+                                .glassEffect()
                         }
-                    } label: {
-                        Label("Move to ISS", systemImage: "dot.radiowaves.left.and.right")
+                    } else {
+                        if let distance = distanceToISS {
+                            Text(String(format: "Distance to ISS: %.1f km", distance / 1000))
+                                .padding(6.7) // siixxxxx seeeevvvvvveeeeennnnnnnn
+                                .background(.regularMaterial, in: RoundedRectangle(cornerRadius: 6.7))
+                        }
                     }
-                    .buttonStyle(.glass)
-                    .padding()
-                    .disabled(issLat == 0 || issLong == 0)
-                } else {
-                    Button {
-                        print("moving to iss")
-                    } label: {
-                        Label("Move to ISS", systemImage: "dot.radiowaves.left.and.right")
+                    
+                    Spacer()
+                    
+                    if #available(iOS 26, *) {
+                        Button {
+                            print("moving to iss")
+                            withAnimation {
+                                position = MapCameraPosition.region(
+                                    MKCoordinateRegion(
+                                        center: CLLocationCoordinate2D(latitude: issLat, longitude: issLong),
+                                        span: MKCoordinateSpan(latitudeDelta: 70, longitudeDelta: 70)
+                                    )
+                                )
+                            }
+                        } label: {
+                            Label("Move to ISS", systemImage: "dot.radiowaves.left.and.right")
+                        }
+                        .buttonStyle(.glass)
+                        .padding()
+                        .disabled(issLat == 0 || issLong == 0)
+                    } else {
+                        Button {
+                            print("moving to iss")
+                        } label: {
+                            Label("Move to ISS", systemImage: "dot.radiowaves.left.and.right")
+                        }
+                        .buttonStyle(.bordered)
+                        .padding()
+                        .disabled(issLat == 0 || issLong == 0)
                     }
-                    .buttonStyle(.bordered)
-                    .padding()
-                    .disabled(issLat == 0 || issLong == 0)
                 }
             }
         }
