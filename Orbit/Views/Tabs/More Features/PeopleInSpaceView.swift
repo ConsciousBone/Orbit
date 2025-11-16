@@ -30,10 +30,13 @@ struct PeopleInSpaceView: View {
                 Form {
                     ForEach(people, id: \.name) { person in
                         Section {
-                            Text(person.name)
-                            Text("Spacecraft: \(person.craft)")
-                                .foregroundStyle(.secondary)
+                            VStack(alignment: .leading) {
+                                Text(person.name)
+                                Text("Spacecraft: \(person.craft)")
+                                    .foregroundStyle(.secondary)
+                            }
                         }
+                        .listSectionSeparator(.hidden)
                     }
                 }
             }
