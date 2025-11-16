@@ -12,6 +12,8 @@ import Combine
 struct ISSMapView: View {
     @StateObject private var locationManager = LocationManager()
     
+    @AppStorage("issLocationRefreshInterval") private var issLocationRefreshInterval: Double = 2
+    
     @State private var position = MapCameraPosition.region(
         MKCoordinateRegion(
             center: CLLocationCoordinate2D(latitude: 25, longitude: 0),
@@ -45,6 +47,13 @@ struct ISSMapView: View {
                 locationManager.requestWhenInUse()
                 print("fetching location onappear")
                 fetchISSLocation(latitude: $issLat, longitude: $issLong)
+                // update timer with the interval var
+                issLocationTimer = Timer.publish(
+                    every: issLocationRefreshInterval,
+                    on: .main,
+                    in: .common
+                )
+                .autoconnect()
             }
             .onReceive(issLocationTimer) { _ in
                 print("timer called, fetching location")

@@ -13,6 +13,8 @@ struct SettingsView: View {
     @AppStorage("selectedBackspacePositionIndex") private var selectedBackspacePositionIndex = 1
     // 0 = left, 1 = right
     let backspacePositions = ["Left", "Right"]
+    
+    @AppStorage("issLocationRefreshInterval") private var issLocationRefreshInterval: Double = 2
     var body: some View {
         Form {
             Section {
@@ -35,6 +37,19 @@ struct SettingsView: View {
                 }
             } header: {
                 Text("Spacebar clicker")
+            }
+            
+            Section {
+                Slider(
+                    value: $issLocationRefreshInterval,
+                    in: 1...5,
+                    step: 1.0,
+                    label: { Text("ISS update rate") },
+                    minimumValueLabel: { Text("1") },
+                    maximumValueLabel: { Text("5") }
+                )
+            } header: {
+                Text("ISS update rate: \(issLocationRefreshInterval.formatted(.number.precision(.fractionLength(0))))")
             }
         }
     }
