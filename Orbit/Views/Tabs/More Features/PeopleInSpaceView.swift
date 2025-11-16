@@ -8,9 +8,32 @@
 import SwiftUI
 
 struct PeopleInSpaceView: View {
+    @State private var people: [PeopleInSpaceResponse.Person] = []
+    @State private var errorMessage: String?
+    
     var body: some View {
-        Text("People in space view")
+        Form {
+            ForEach(people, id: \.name) { person in
+                Section {
+                    Text(person.name)
+                    Text(person.craft)
+                        .foregroundStyle(.secondary)
+                }
+            }
+        }
+        .task {
+            await loadPeople()
+        }
     }
+    
+    private func loadPeople() async {
+            do {
+                let response = try await fetchPeopleInSpace()
+                people = response.people
+            } catch {
+                errorMessage = error.localizedDescription
+            }
+        }
 }
 
 #Preview {
