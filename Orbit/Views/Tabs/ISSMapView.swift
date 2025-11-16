@@ -60,30 +60,34 @@ struct ISSMapView: View {
                 fetchISSLocation(latitude: $issLat, longitude: $issLong)
             }
             
-            if #available(iOS 26, *) {
-                Button {
-                    print("moving to iss")
-                    withAnimation {
-                        position = MapCameraPosition.region(
-                            MKCoordinateRegion(
-                                center: CLLocationCoordinate2D(latitude: issLat, longitude: issLong),
-                                span: MKCoordinateSpan(latitudeDelta: 70, longitudeDelta: 70)
+            if issLat != 0 || issLong != 0 {
+                if #available(iOS 26, *) {
+                    Button {
+                        print("moving to iss")
+                        withAnimation {
+                            position = MapCameraPosition.region(
+                                MKCoordinateRegion(
+                                    center: CLLocationCoordinate2D(latitude: issLat, longitude: issLong),
+                                    span: MKCoordinateSpan(latitudeDelta: 70, longitudeDelta: 70)
+                                )
                             )
-                        )
+                        }
+                    } label: {
+                        Label("Move to ISS", systemImage: "dot.radiowaves.left.and.right")
                     }
-                } label: {
-                    Label("Move to ISS", systemImage: "dot.radiowaves.left.and.right")
+                    .buttonStyle(.glass)
+                    .padding()
+                    .disabled(issLat == 0 || issLong == 0)
+                } else {
+                    Button {
+                        print("moving to iss")
+                    } label: {
+                        Label("Move to ISS", systemImage: "dot.radiowaves.left.and.right")
+                    }
+                    .buttonStyle(.bordered)
+                    .padding()
+                    .disabled(issLat == 0 || issLong == 0)
                 }
-                .buttonStyle(.glass)
-                .padding()
-            } else {
-                Button {
-                    print("moving to iss")
-                } label: {
-                    Label("Move to ISS", systemImage: "dot.radiowaves.left.and.right")
-                }
-                .buttonStyle(.bordered)
-                .padding()
             }
         }
     }
