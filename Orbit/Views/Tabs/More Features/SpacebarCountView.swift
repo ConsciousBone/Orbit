@@ -12,6 +12,8 @@ struct SpacebarCountView: View {
     @AppStorage("selectedBackspacePositionIndex") private var selectedBackspacePositionIndex = 1
     // 0 = left, 1 = right
     
+    @State private var showingClearDialog = false
+    
     @AppStorage("spacebarTaps") private var spacebarTaps = 0
     
     var adaptiveForegroundColour: Color {
@@ -23,12 +25,16 @@ struct SpacebarCountView: View {
             Text("Spacebar taps:")
                 .padding()
             Text("\(spacebarTaps)")
+                .contentTransition(.numericText(value: Double(spacebarTaps)))
+                .animation(.smooth, value: spacebarTaps)
                 .font(.title)
             
             HStack {
                 if selectedBackspacePositionIndex == 0 {
                     Button {
-                        spacebarTaps -= 1
+                        if spacebarTaps > 0 {
+                            spacebarTaps -= 1
+                        }
                     } label: {
                         RoundedRectangle(cornerRadius: 10)
                             .frame(width: 75, height: 75)
@@ -40,11 +46,12 @@ struct SpacebarCountView: View {
                                     .padding(20)
                             }
                     }
-                    .disabled(spacebarTaps <= 0)
                 }
                 
                 Button {
-                    spacebarTaps += 1
+                    withAnimation {
+                        spacebarTaps += 1
+                    }
                 } label: {
                     RoundedRectangle(cornerRadius: 10)
                         .frame(width: 200, height: 75)
@@ -59,7 +66,9 @@ struct SpacebarCountView: View {
                 
                 if selectedBackspacePositionIndex == 1 {
                     Button {
-                        spacebarTaps -= 1
+                        if spacebarTaps > 0 {
+                            spacebarTaps -= 1
+                        }
                     } label: {
                         RoundedRectangle(cornerRadius: 10)
                             .frame(width: 75, height: 75)
@@ -71,10 +80,27 @@ struct SpacebarCountView: View {
                                     .padding(20)
                             }
                     }
-                    .disabled(spacebarTaps <= 0)
                 }
             }
             .padding(50)
+        }
+        .toolbar {
+            ToolbarItem(placement: .topBarTrailing) {
+                Button {
+                    showingClearDialog.toggle()
+                } label: {
+                    Label("Reset", systemImage: "trash")
+                }
+                .confirmationDialog(
+                    "Reset clicks",
+                    isPresented: $showingClearDialog
+                ) {
+                    Button("Reset", role: .destructive) { withAnimation { spacebarTaps = 0 } }
+                    Button("Cancel", role: .cancel) { }
+                } message: {
+                    Text("This will reset your clicks to 0.\nThis cannot be undone.")
+                }
+            }
         }
         .navigationTitle("Spacebar clicker")
         .navigationBarTitleDisplayMode(.inline)
