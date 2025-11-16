@@ -15,6 +15,8 @@ struct SettingsView: View {
     let backspacePositions = ["Left", "Right"]
     
     @AppStorage("issLocationRefreshInterval") private var issLocationRefreshInterval: Double = 2
+    @AppStorage("showingISSDistance") private var showingISSDistance = true
+    
     var body: some View {
         NavigationStack {
             Form {
@@ -51,6 +53,12 @@ struct SettingsView: View {
                     )
                 } header: {
                     Text("ISS update rate: \(issLocationRefreshInterval.formatted(.number.precision(.fractionLength(0))))")
+                }
+                
+                Section {
+                    Toggle(isOn: $showingISSDistance) {
+                        Label("Show distance to ISS", systemImage: "point.bottomleft.filled.forward.to.point.topright.scurvepath")
+                    }
                 }
             }
             .navigationTitle("Settings")

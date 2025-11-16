@@ -21,6 +21,8 @@ struct ISSMapView: View {
         )
     )
     
+    @AppStorage("showingISSDistance") private var showingISSDistance = true
+    
     @State private var issLat: Double = 0.0
     @State private var issLong: Double = 0.0
     @State private var issLocationTimer = Timer.publish(every: 2, on: .main, in: .common).autoconnect()
@@ -72,17 +74,19 @@ struct ISSMapView: View {
             
             if issLat != 0 || issLong != 0 {
                 VStack {
-                    if #available(iOS 26, *) {
-                        if let distance = distanceToISS {
-                            Text(String(format: "Distance to ISS: %.1f km", distance / 1000))
-                                .padding(6.7) // siixxxxx seeeevvvvvveeeeennnnnnnn
-                                .glassEffect()
-                        }
-                    } else {
-                        if let distance = distanceToISS {
-                            Text(String(format: "Distance to ISS: %.1f km", distance / 1000))
-                                .padding(6.7) // siixxxxx seeeevvvvvveeeeennnnnnnn
-                                .background(.regularMaterial, in: RoundedRectangle(cornerRadius: 6.7))
+                    if showingISSDistance {
+                        if #available(iOS 26, *) {
+                            if let distance = distanceToISS {
+                                Text(String(format: "Distance to ISS: %.1f km", distance / 1000))
+                                    .padding(6.7) // siixxxxx seeeevvvvvveeeeennnnnnnn
+                                    .glassEffect()
+                            }
+                        } else {
+                            if let distance = distanceToISS {
+                                Text(String(format: "Distance to ISS: %.1f km", distance / 1000))
+                                    .padding(6.7) // siixxxxx seeeevvvvvveeeeennnnnnnn
+                                    .background(.regularMaterial, in: RoundedRectangle(cornerRadius: 6.7))
+                            }
                         }
                     }
                     
