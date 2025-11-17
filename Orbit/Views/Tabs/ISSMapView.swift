@@ -53,6 +53,18 @@ struct ISSMapView: View {
     
     @State private var issPath: [CLLocationCoordinate2D] = []
     
+    private func appendISSCoord() {
+        guard issLat != 0, issLong != 0 else { return }
+        let newCoord = CLLocationCoordinate2D(latitude: issLat, longitude: issLong)
+        
+        if let last = issPath.last,
+           last.latitude == newCoord.latitude,
+           last.longitude == newCoord.longitude {
+            return // no duplicates here tyvm
+        }
+        issPath.append(newCoord)
+    }
+    
     var body: some View {
         ZStack(alignment: .bottom) {
             Map(position: $position, interactionModes: [.all]) {
@@ -77,6 +89,7 @@ struct ISSMapView: View {
             }
             .onAppear {
                 print("map onappear")
+                issPath = [] // remove old line
                 locationManager.requestWhenInUse()
                 print("fetching location onappear")
                 fetchISSLocation(latitude: $issLat, longitude: $issLong)
@@ -91,6 +104,12 @@ struct ISSMapView: View {
             .onReceive(issLocationTimer) { _ in
                 print("timer called, fetching location")
                 fetchISSLocation(latitude: $issLat, longitude: $issLong)
+            }
+            .onChange(of: issLat) {
+                appendISSCoord()
+            }
+            .onChange(of: issLong) {
+                appendISSCoord()
             }
             
             if issLat != 0 || issLong != 0 {
