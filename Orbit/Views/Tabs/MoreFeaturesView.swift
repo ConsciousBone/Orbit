@@ -33,6 +33,16 @@ struct MoreFeaturesView: View {
                 
                 Section {
                     NavigationLink {
+                        SpaceFactsView()
+                    } label: {
+                        Label("Space facts", systemImage: "brain")
+                    }
+                } footer: {
+                    Text("Gain some space knowledge with some facts about space!")
+                }
+                
+                Section {
+                    NavigationLink {
                         SpacebarCountView()
                     } label: {
                         Label("Spacebar clicker", systemImage: "space")
