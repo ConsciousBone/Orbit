@@ -40,7 +40,7 @@ struct BlankSpaceView: View {
                     "Clear text",
                     isPresented: $showingClearDialog,
                 ){
-                    Button("Clear", role: .destructive) { withAnimation { blankSpaceText = "" } }
+                    Button("Clear", role: .destructive) { blankSpaceText = "" }
                     Button("Cancel", role: .cancel) { }
                 } message: {
                     Text("This will clear all text in your blank space.\nThis cannot be undone.")
