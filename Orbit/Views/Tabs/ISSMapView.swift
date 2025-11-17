@@ -74,7 +74,14 @@ struct ISSMapView: View {
                 
                 if issPath.count > 1 && showingISSPath {
                     MapPolyline(coordinates: issPath)
-                        .stroke(accentColours[selectedAccentIndex], lineWidth: CGFloat(issPathLineWidth))
+                        .stroke(
+                            accentColours[selectedAccentIndex],
+                            style: StrokeStyle(
+                                lineWidth: CGFloat(issPathLineWidth),
+                                lineCap: .round,
+                                lineJoin: .round
+                            )
+                        )
                 }
                 
                 Marker(
@@ -82,7 +89,7 @@ struct ISSMapView: View {
                     systemImage: "dot.radiowaves.left.and.right",
                     coordinate: CLLocationCoordinate2D(latitude: issLat, longitude: issLong)
                 )
-                .tint(.purple)
+                .tint(accentColours[selectedAccentIndex])
             }
             .mapControls{
                 MapCompass()
