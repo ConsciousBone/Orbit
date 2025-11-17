@@ -58,7 +58,7 @@ struct MoreFeaturesView: View {
                         Label("Blank space", systemImage: "doc")
                     }
                 } footer: {
-                    Text("Literally a blank space for you to write notes, let out feelings, or any endless uses.")
+                    Text("Literally a blank space for anything that needs a text box; it's your *space* to write in!")
                 }
             }
             .navigationTitle("More features")
