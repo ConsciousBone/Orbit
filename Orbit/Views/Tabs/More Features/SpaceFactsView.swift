@@ -27,7 +27,11 @@ struct SpaceFactsView: View {
         "Jupiter's Great Red Spot, which rotates once approximately every 6 days, is an anti-cyclonic storm 22° south of the planet's equator.",
         "To escape Earth's gravity, a spacecraft must travel more than 25,008 mph, or close to Mach 33.",
         "Earth rotates once per day but its rotation is slowing by 1.4 milliseconds every century.",
-        "The Earth would fit inside the Sun 1.3 million times."
+        "The Earth would fit inside the Sun 1.3 million times.",
+        "People have known that the Earth is a sphere since at least 500 B.C.",
+        "Mars is not hot; the average surface temperature is around -60°C.",
+        "Earth orbits the sun at a speed of 30 kilometers per second.",
+        "About 550 people have been to space."
     ]
     @State private var selectedFact = ""
     var body: some View {
@@ -42,6 +46,8 @@ struct SpaceFactsView: View {
                 } label: {
                     Label("New fact", systemImage: "shuffle")
                 }
+            } footer: {
+                Text("Amount of facts: \(spaceFacts.count)")
             }
         }
         .navigationTitle("Space facts")

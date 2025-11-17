@@ -34,18 +34,6 @@ struct SettingsView: View {
                 }
                 
                 Section {
-                    Picker(selection: $selectedBackspacePositionIndex) {
-                        ForEach(backspacePositions.indices, id: \.self) { index in
-                            Text(backspacePositions[index])
-                        }
-                    } label: {
-                        Label("Backspace position", systemImage: "delete.backward")
-                    }
-                } header: {
-                    Text("Spacebar clicker")
-                }
-                
-                Section {
                     Slider(
                         value: $issLocationRefreshInterval,
                         in: 1...5,
@@ -73,6 +61,18 @@ struct SettingsView: View {
                     }
                 } header: {
                     Text("ISS distance")
+                }
+                
+                Section {
+                    Picker(selection: $selectedBackspacePositionIndex) {
+                        ForEach(backspacePositions.indices, id: \.self) { index in
+                            Text(backspacePositions[index])
+                        }
+                    } label: {
+                        Label("Backspace position", systemImage: "delete.backward")
+                    }
+                } header: {
+                    Text("Spacebar clicker")
                 }
             }
             .navigationTitle("Settings")
