@@ -132,6 +132,16 @@ struct ISSMapView: View {
                         .disabled(issLat == 0 || issLong == 0)
                     }
                 }
+            } else {
+                if #available(iOS 26, *) {
+                    Text("Loading...")
+                        .padding(6.7) // sixx seevveeennnnnn
+                        .glassEffect()
+                } else {
+                    Text("Loading...")
+                        .padding(6.7) // is the meme dead yet
+                        .background(.regularMaterial, in: RoundedRectangle(cornerRadius: 6.7))
+                }
             }
         }
     }
