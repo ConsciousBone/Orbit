@@ -8,6 +8,8 @@
 import SwiftUI
 
 struct BlankSpaceView: View {
+    @State private var showingClearDialog = false
+    
     @AppStorage("blankSpaceText") private var blankSpaceText = ""
     
     var body: some View {
@@ -25,6 +27,25 @@ struct BlankSpaceView: View {
         .background {
             Image("StarrySky")
                 .scaledToFill()
+        }
+        .toolbar {
+            ToolbarItem(placement: .topBarTrailing) {
+                Button {
+                    print("showing clear dialog")
+                    showingClearDialog = true
+                } label: {
+                    Label("Clear", systemImage: "trash")
+                }
+                .confirmationDialog(
+                    "Clear text",
+                    isPresented: $showingClearDialog,
+                ){
+                    Button("Clear", role: .destructive) { withAnimation { blankSpaceText = "" } }
+                    Button("Cancel", role: .cancel) { }
+                } message: {
+                    Text("This will clear all text in your blank space.\nThis cannot be undone.")
+                }
+            }
         }
     }
 }
