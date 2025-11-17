@@ -22,7 +22,7 @@ As per usual for all my Siege projects, this is the way I recommend, but there a
 8. Wait for the app to install, and then launch it! *If you are prompted to enable Developer Mode or trust the app/dev, so do.*
 
 # Inspiration
-Space has always been a fascinating topic for me, and so has location-based tracking, so combine that with this week's Siege theme being `Space`, it was the perfect opportunity for me to combine these interests into one app!
+Space has always been a fascinating topic for me, and so has location-based tracking, so combine that with this week's Siege theme being `Space`, it was the perfect opportunity for me to combine these interests into one app: a space toolkit with an ISS tracker!
 
 # Tech stack
 - Swift (what basically every modern app for Apple platforms is written in, if the developer has some mental sanity)
