@@ -1,5 +1,6 @@
 # Orbit
-Orbit is an iOS/iPadOS app for space related activities! It includes an ISS tracker, a list of people currently in space, some space jokes, and a spacebar clicker game; built for Hack Club's Siege Week 10.
+Orbit is an iOS/iPadOS app for space related activities!  
+It includes an ISS tracker, a list of people currently in space, some space jokes, and a spacebar clicker game; built for Hack Club's Siege Week 10.  
 It supports iPhone and iPad, as well as Mac and Apple Vision Pro using *Designed for iPad*!
 
 # Demos
