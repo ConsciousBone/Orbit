@@ -14,6 +14,10 @@ struct SettingsView: View {
     // 0 = left, 1 = right
     let backspacePositions = ["Left", "Right"]
     
+    @AppStorage("blankSpaceBackgroundIndex") private var blankSpaceBackgroundIndex = 0
+    // 0 is stars, 1 is system default
+    let blankSpaceBackgrounds = ["Stars", "System default"]
+    
     @AppStorage("issLocationRefreshInterval") private var issLocationRefreshInterval: Double = 2
     @AppStorage("showingISSDistance") private var showingISSDistance = true
     @AppStorage("issDistanceUnits") private var issDistanceUnits = 0
@@ -98,6 +102,18 @@ struct SettingsView: View {
                     }
                 } header: {
                     Text("Spacebar clicker")
+                }
+                
+                Section {
+                    Picker(selection: $blankSpaceBackgroundIndex) {
+                        ForEach(blankSpaceBackgrounds.indices, id: \.self) { index in
+                            Text(blankSpaceBackgrounds[index])
+                        }
+                    } label: {
+                        Label("Background", systemImage: "photo")
+                    }
+                } header: {
+                    Text("Blank space")
                 }
             }
             .navigationTitle("Settings")

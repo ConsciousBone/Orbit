@@ -9,6 +9,8 @@ import SwiftUI
 
 struct BlankSpaceView: View {
     @State private var showingClearDialog = false
+    @AppStorage("blankSpaceBackgroundIndex") private var blankSpaceBackgroundIndex = 0
+    // 0 is stars, 1 is system default
     
     @AppStorage("blankSpaceText") private var blankSpaceText = ""
     
@@ -18,15 +20,17 @@ struct BlankSpaceView: View {
                 .fill(.ultraThinMaterial)
             TextEditor(text: $blankSpaceText)
                 .clipShape(RoundedRectangle(cornerRadius: 20))
-                .foregroundStyle(.white)
+                .foregroundStyle(blankSpaceBackgroundIndex == 0 ? .white : .primary)
                 .multilineTextAlignment(.center)
                 .scrollContentBackground(.hidden) // https://stackoverflow.com/a/62848618
                 .padding()
         }
         .frame(width: 300, height: 500)
         .background {
-            Image("StarrySky")
-                .scaledToFill()
+            if blankSpaceBackgroundIndex == 0 {
+                Image("StarrySky")
+                    .scaledToFill()
+            }
         }
         .toolbar {
             ToolbarItem(placement: .topBarTrailing) {
