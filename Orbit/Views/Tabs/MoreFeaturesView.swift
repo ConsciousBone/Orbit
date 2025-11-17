@@ -50,6 +50,16 @@ struct MoreFeaturesView: View {
                 } footer: {
                     Text("See how many times you can tap the *space*bar!")
                 }
+                
+                Section {
+                    NavigationLink {
+                        BlankSpaceView()
+                    } label: {
+                        Label("Blank space", systemImage: "doc")
+                    }
+                } footer: {
+                    Text("Literally a blank space for you to write notes, let out feelings, or any endless uses.")
+                }
             }
             .navigationTitle("More features")
             .navigationBarTitleDisplayMode(.inline)
