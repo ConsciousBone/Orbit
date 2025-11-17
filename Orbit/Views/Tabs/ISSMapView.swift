@@ -11,6 +11,7 @@ import Combine
 
 struct ISSMapView: View {
     @StateObject private var locationManager = LocationManager()
+    @AppStorage("selectedAccentIndex") private var selectedAccentIndex = 6 // purple
     
     @AppStorage("issLocationRefreshInterval") private var issLocationRefreshInterval: Double = 2
     
@@ -50,10 +51,18 @@ struct ISSMapView: View {
         }
     }
     
+    @State private var issPath: [CLLocationCoordinate2D] = []
+    
     var body: some View {
         ZStack(alignment: .bottom) {
             Map(position: $position, interactionModes: [.all]) {
                 UserAnnotation()
+                
+                if issPath.count > 1 {
+                    MapPolyline(coordinates: issPath)
+                        .stroke(accentColours[selectedAccentIndex], lineWidth: 2)
+                }
+                
                 Marker(
                     "ISS",
                     systemImage: "dot.radiowaves.left.and.right",
