@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct BlankSpaceView: View {
+    @FocusState var isInputActive: Bool
     @State private var showingClearDialog = false
     @AppStorage("blankSpaceBackgroundIndex") private var blankSpaceBackgroundIndex = 0
     // 0 is stars, 1 is system default
@@ -19,6 +20,7 @@ struct BlankSpaceView: View {
             RoundedRectangle(cornerRadius: 20)
                 .fill(.ultraThinMaterial)
             TextEditor(text: $blankSpaceText)
+                .focused($isInputActive)
                 .clipShape(RoundedRectangle(cornerRadius: 20))
                 .foregroundStyle(blankSpaceBackgroundIndex == 0 ? .white : .primary)
                 .multilineTextAlignment(.center)
@@ -49,6 +51,14 @@ struct BlankSpaceView: View {
                 } message: {
                     Text("This will clear all text in your blank space.\nThis cannot be undone.")
                 }
+            }
+            ToolbarItem(placement: .keyboard) {
+                Button {
+                    isInputActive = false
+                } label: {
+                    Label("Close keyboard", systemImage: "xmark")
+                }
+                .padding()
             }
         }
     }

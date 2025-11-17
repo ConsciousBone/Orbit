@@ -18,7 +18,7 @@ struct MoreFeaturesView: View {
                         Label("People in space", systemImage: "figure")
                     }
                 } footer: {
-                    Text("See who's currently in space, and what spacecraft they're on!")
+                    Text("See who's currently in space and what spacecraft they're on!")
                 }
                 
                 Section {
