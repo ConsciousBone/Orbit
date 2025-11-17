@@ -51,8 +51,8 @@ struct ISSMapView: View {
         }
     }
     
+    @AppStorage("showingISSPath") private var showingISSPath = true
     @State private var issPath: [CLLocationCoordinate2D] = []
-    
     private func appendISSCoord() {
         guard issLat != 0, issLong != 0 else { return }
         let newCoord = CLLocationCoordinate2D(latitude: issLat, longitude: issLong)
@@ -70,7 +70,7 @@ struct ISSMapView: View {
             Map(position: $position, interactionModes: [.all]) {
                 UserAnnotation()
                 
-                if issPath.count > 1 {
+                if issPath.count > 1 && showingISSPath {
                     MapPolyline(coordinates: issPath)
                         .stroke(accentColours[selectedAccentIndex], lineWidth: 2)
                 }
