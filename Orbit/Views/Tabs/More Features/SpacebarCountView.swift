@@ -22,7 +22,7 @@ struct SpacebarCountView: View {
     
     var body: some View {
         VStack {
-            Text("Spacebar taps:")
+            Text("Spacebar clicks:")
                 .padding()
             Text("\(spacebarTaps)")
                 .contentTransition(.numericText(value: Double(spacebarTaps)))
