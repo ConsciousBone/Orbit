@@ -6,9 +6,7 @@ It supports iPhone and iPad, as well as Mac and Apple Vision Pro using *Designed
 ## Screenshots
 TODO: this
 ## Video
-[YouTube link (unlisted)](https://example.com)
-takes you to example.com for now
-TODO: actual link
+[YouTube link (unlisted)](https://youtu.be/jO5hAH8tdoo)
 
 # How to get Orbit
 As per usual for all my Siege projects, this is the way I recommend, but there are indeed other ways to sideload apps onto iOS/iPadOS/etc devices such as AltStore and SideStore; they will all work, there's no reason for them not to!
