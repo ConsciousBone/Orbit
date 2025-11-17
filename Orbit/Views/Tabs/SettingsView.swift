@@ -62,12 +62,14 @@ struct SettingsView: View {
                     Toggle(isOn: $showingISSDistance) {
                         Label("Show distance to ISS", systemImage: "point.bottomleft.filled.forward.to.point.topright.scurvepath")
                     }
-                    Picker(selection: $issDistanceUnits) {
-                        ForEach(distanceUnitsText.indices, id: \.self) { index in
-                            Text(distanceUnitsText[index])
+                    if showingISSDistance {
+                        Picker(selection: $issDistanceUnits) {
+                            ForEach(distanceUnitsText.indices, id: \.self) { index in
+                                Text(distanceUnitsText[index])
+                            }
+                        } label: {
+                            Label("Distance units", systemImage: "base.unit")
                         }
-                    } label: {
-                        Label("Distance units", systemImage: "base.unit")
                     }
                 } header: {
                     Text("ISS distance")
