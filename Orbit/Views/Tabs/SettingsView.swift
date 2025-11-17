@@ -21,6 +21,7 @@ struct SettingsView: View {
     let distanceUnitsText = ["km", "mi"]
     @AppStorage("showingISSPath") private var showingISSPath = true
     @AppStorage("issPathLineWidth") private var issPathLineWidth: Double = 2
+    @AppStorage("issPathAutoClear") private var issPathAutoClear = true
     
     var body: some View {
         NavigationStack {
@@ -77,6 +78,9 @@ struct SettingsView: View {
                             minimumValueLabel: { Text("1") },
                             maximumValueLabel: { Text("10") }
                         )
+                    }
+                    Toggle(isOn: $issPathAutoClear) {
+                        Label("Auto clear ISS path", systemImage: "eraser")
                     }
                 } header: {
                     Text("ISS map")

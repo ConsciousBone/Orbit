@@ -53,6 +53,7 @@ struct ISSMapView: View {
     
     @AppStorage("showingISSPath") private var showingISSPath = true
     @AppStorage("issPathLineWidth") private var issPathLineWidth: Double = 2
+    @AppStorage("issPathAutoClear") private var issPathAutoClear = true
     @State private var issPath: [CLLocationCoordinate2D] = []
     private func appendISSCoord() {
         guard issLat != 0, issLong != 0 else { return }
@@ -90,7 +91,9 @@ struct ISSMapView: View {
             }
             .onAppear {
                 print("map onappear")
-                issPath = [] // remove old line
+                if issPathAutoClear {
+                    issPath = [] // remove old line
+                }
                 locationManager.requestWhenInUse()
                 print("fetching location onappear")
                 fetchISSLocation(latitude: $issLat, longitude: $issLong)
