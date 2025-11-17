@@ -20,6 +20,7 @@ struct SettingsView: View {
     // 0 is km, 1 is miles
     let distanceUnitsText = ["km", "mi"]
     @AppStorage("showingISSPath") private var showingISSPath = true
+    @AppStorage("issPathLineWidth") private var issPathLineWidth: Double = 2
     
     var body: some View {
         NavigationStack {
@@ -64,6 +65,18 @@ struct SettingsView: View {
                     
                     Toggle(isOn: $showingISSPath) {
                         Label("Show ISS path", systemImage: "point.topleft.down.to.point.bottomright.curvepath")
+                    }
+                    
+                    VStack(alignment: .leading) {
+                        Label("ISS path width: \(issPathLineWidth.formatted(.number.precision(.fractionLength(0))))", systemImage: "pencil.and.outline")
+                        Slider(
+                            value: $issPathLineWidth,
+                            in: 1...10,
+                            step: 1,
+                            label: { Text("ISS path width") },
+                            minimumValueLabel: { Text("1") },
+                            maximumValueLabel: { Text("10") }
+                        )
                     }
                 } header: {
                     Text("ISS map")
