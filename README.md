@@ -1,3 +1,21 @@
 # Orbit
+Orbit is an iOS/iPadOS app for space related activities! It includes an ISS tracker, a list of people currently in space, some space jokes, and a spacebar clicker game; built for Hack Club's Siege Week 10.
+It supports iPhone and iPad, as well as Mac and Apple Vision Pro using *Designed for iPad*!
 
-TODO: this whole file
+# Demos
+## Screenshots
+TODO: this
+## Video
+[YouTube link (unlisted)](https://example.com)
+takes you to example.com for now
+TODO: actual link
+
+# How to get Orbit
+As per usual for all my Siege projects, this is the way I recommend, but there are indeed other ways to sideload apps onto iOS/iPadOS/etc devices such as AltStore and SideStore; they will all work, there's no reason for them not to!
+1. Install [Sideloadly](https://sideloadly.io) and its dependencies; if I remember correctly there are none on macOS but Windows needs iTunes and iCloud **not from the Microsoft Store**; the Sideloadly website will have links to all dependencies you need for your OS.
+2. From the [Releases](https://github.com/ConsciousBone/Orbit/releases/tag/stable) tab, find the latest release - it should be at the top -, and download the attached `Orbit.ipa` file.
+3. Using a cable that supports both charge *and* data transfer, connect your device to your computer, tap `Trust` if promped to and enter your password, then open Sideloadly.
+4. In Sideloadly, click the file icon with the `IPA` text, and select the previously downloaded `Orbit.ipa` file.
+5. Select your device in the `iDevice` dropdown, and make sure the name matches with the device you wish to sideload Orbit to.
+6. In the `Apple ID` text field, enter your Apple Account/ID's email. If you use a free Apple developer account, you will need to reinstall/resign Orbit every 7 days; with a paid dev account you only have to reinstall/resign Orbit once every 365 days!
+7. Click the `Start` button, and enter your Apple Account/ID's password when prompted. **No one apart from you and Apple will see this password - not the Sideloadly devs and not me.**
